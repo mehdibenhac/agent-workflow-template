@@ -1,0 +1,18 @@
+# Normalize line endings to LF in the repo
+* text=auto eol=lf
+
+# Shell scripts must stay LF
+*.sh text eol=lf
+
+# Common text sources
+*.md text
+*.yml text
+*.yaml text
+*.json text
+
+# Binary assets
+*.png binary
+*.jpg binary
+*.pdf binary
+
+# << Add project-specific rules, e.g. generated files marked -diff. >>

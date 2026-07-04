@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+# Committed hook — activated by: git config core.hooksPath .githooks
+# (scripts/setup.sh does this). Mechanical guard: works regardless of which
+# agent or human is committing. NOTE: hooks are bypassable with --no-verify;
+# the guard also runs in scripts/check.sh so bypass still surfaces there.
+exec bash "$(git rev-parse --show-toplevel)/scripts/guard.sh" staged

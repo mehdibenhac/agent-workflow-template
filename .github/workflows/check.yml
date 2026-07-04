@@ -1,0 +1,33 @@
+# Runs the repo's own verification gate on every push and PR.
+# Stack-agnostic: it invokes scripts/check.sh, which runs the knowledge-base
+# lint and protected-paths guard directly, then delegates lint/build/test to
+# scripts/project.sh. Until a project wires project.sh, those stages SKIP and
+# the job is green-but-honest. Swap this file for your CI of choice if needed.
+name: check
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  gate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0   # guard.sh compares the tree against HEAD
+
+      # << If your project needs a toolchain (Node, Rust, a specific runtime,
+      # or the target SDK), set it up here before check.sh runs — e.g.
+      #   - uses: actions/setup-node@v4
+      #     with: { node-version: 20 }
+      # so that scripts/project.sh's build/test stages can execute in CI. >>
+
+      - name: Run the gate
+        run: |
+          chmod +x scripts/*.sh .githooks/* 2>/dev/null || true
+          bash scripts/check.sh

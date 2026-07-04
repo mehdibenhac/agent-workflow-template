@@ -1,0 +1,18 @@
+# --- Generic ---
+build/
+dist/
+tmp/
+.DS_Store
+
+# Secrets — never commit keys, tokens, or credentials
+*.env
+.env.*
+*secrets*
+*.pem
+*.key
+
+# Local project hooks config (activated per-clone by scripts/setup.sh output)
+# (scripts/project.sh is COMMITTED — it's part of the gate. Do not ignore it.)
+
+# --- Project-specific (add your build artifacts, dep dirs, generated files) ---
+# << e.g. node_modules/  target/  *.xcodeproj  __pycache__/  .venv/ >>

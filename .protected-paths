@@ -1,0 +1,22 @@
+# Files no agent may modify without explicit owner approval.
+# Enforced mechanically by .githooks/pre-commit (scripts/guard.sh).
+# Override for an owner-approved change:  ALLOW_PROTECTED=1 git commit ...
+# One glob per line; lines starting with # are comments.
+#
+# Keep this list SHORT and load-bearing: the files whose silent modification
+# would be dangerous (authoritative constants, golden tests, the plan, and the
+# guard machinery itself). Add your project's equivalents below.
+
+# --- Process & guard machinery (keep these protected) ---
+docs/IMPLEMENTATION_PLAN.md
+docs/slices/*        # phased-plan projects have no slices — intake removes this line
+AGENTS.md
+.protected-paths
+.githooks/pre-commit
+scripts/guard.sh
+
+# --- Project-specific (edit these) ---
+# << e.g. the file holding authoritative constants: >>
+# App/Sources/Rules/RuleBook.swift
+# << e.g. the test file holding golden/reference values: >>
+# Tests/GoldenValueTests.swift

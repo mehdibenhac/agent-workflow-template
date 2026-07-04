@@ -1,0 +1,38 @@
+# project.sh — project-specific hooks for check.sh and setup.sh.
+#
+# Copy this file to scripts/project.sh and fill in the commands for YOUR stack.
+# check.sh sources it and calls whichever functions you define; any function
+# you leave out is reported as SKIPPED (loudly) rather than failing.
+#
+# Contract:
+#   - Each function returns 0 on success, non-zero on failure.
+#   - project_test may read $FAST (1 = inner loop; skip slow/UI tests).
+#   - Keep these thin: real logic belongs in your build tooling, not here.
+#
+# PROJECT_REQUIRED_TOOLS: space-separated tools setup.sh checks for and reports.
+PROJECT_REQUIRED_TOOLS="git"      # e.g. "git node npm" or "git cargo" or "git xcodegen xcodebuild"
+
+# ---- Lint (optional but recommended; mandatory when the tool is present) ----
+project_lint() {
+  # e.g. npm run lint  |  cargo clippy -- -D warnings  |  ruff check .
+  echo "project_lint: not configured"; return 0
+}
+
+# ---- Project/asset generation (optional) ----
+project_generate() {
+  # e.g. xcodegen generate --quiet  |  prisma generate  |  (nothing)
+  echo "project_generate: not configured"; return 0
+}
+
+# ---- Build (optional; run before tests) ----
+project_build() {
+  # e.g. npm run build  |  cargo build  |  xcodebuild build -scheme ...
+  echo "project_build: not configured"; return 0
+}
+
+# ---- Tests (the slice gate — this is the one that really matters) ----
+project_test() {
+  # Honour $FAST for the inner loop:
+  #   if [ "${FAST:-0}" = 1 ]; then npm test -- --skip-e2e; else npm test; fi
+  echo "project_test: not configured"; return 0
+}
